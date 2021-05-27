@@ -1,0 +1,122 @@
+<h1 mat-dialog-title>{{ action }}:</h1>
+<div mat-dialog-content>
+  <form [formGroup]="personaForm" style="min-height: 300px">
+    <div *ngIf="action != 'Borrar'; else elseTemplate">
+      <input hidden formControlName="id" />
+      <mat-form-field class="mr-4">
+        <input
+          type="text"
+          placeholder="{{ action }} nombre"
+          matInput
+          formControlName="nombre"
+        />
+        <mat-error *ngIf="handleError('nombre', 'minlength')">
+          Debe escribir al menos <strong>3 caracteres</strong>
+        </mat-error>
+        <mat-error *ngIf="handleError('nombre', 'required')">
+          Debe poner un <strong>nombre</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          type="text"
+          placeholder="{{ action }} apellidos"
+          matInput
+          formControlName="apellidos"
+        />
+        <mat-error *ngIf="handleError('apellidos', 'minlength')">
+          Debe escribir al menos <strong>3 caracteres</strong>
+        </mat-error>
+        <mat-error *ngIf="handleError('apellidos', 'required')">
+          Debe poner los <strong>apellidos</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="mr-4">
+        <input
+          type="number"
+          placeholder="{{ action }} edad"
+          matInput
+          formControlName="edad"
+        />
+        <mat-error *ngIf="handleError('edad', 'min')">
+          Debe ser mayor que <strong>0</strong>
+        </mat-error>
+        <mat-error *ngIf="handleError('edad', 'max')">
+          Debe ser menor que <strong>125</strong>
+        </mat-error>
+        <mat-error *ngIf="handleError('edad', 'required')">
+          Debe poner la <strong>edad</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input placeholder="{{ action }} dni" matInput formControlName="dni" />
+        <mat-error *ngIf="handleError('dni', 'minlength')">
+          Debe escribir al menos <strong>9 caracteres</strong>
+        </mat-error>
+        <mat-error *ngIf="handleError('dni', 'required')">
+          Debe poner un <strong>DNI</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="mr-4">
+        <!-- <input matInput [matDatepicker]="picker" formControlName="cumple">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker> -->
+        <input
+          type="date"
+          placeholder="{{ action }} cumple"
+          matInput
+          formControlName="cumple"
+        />
+        <mat-error *ngIf="handleError('cumple', 'required')">
+          Debe poner una <strong>fecha</strong>
+        </mat-error>
+        <mat-error *ngIf="handleError('cumple', 'pattern')">
+          Debe poner una <strong>fecha</strong> válida
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          type="text"
+          placeholder="{{ action }} color"
+          matInput
+          formControlName="color"
+        />
+        <mat-error *ngIf="handleError('color', 'minlength')">
+          Debe escribir al menos <strong>3 caracteres</strong>
+        </mat-error>
+        <mat-error *ngIf="handleError('color', 'required')">
+          Debe poner un <strong>color</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select formControlName="sexo">
+          <mat-option *ngFor="let element of sexo" [value]="element.value">
+            {{element.viewValue}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="handleError('sexo', 'required')">
+          Debe escoger un <strong>sexo</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <ng-template #elseTemplate>
+      Quieres borrar a <b>{{ local_data.nombre + local_data.apellidos }}</b
+      >?
+    </ng-template>
+
+    <div mat-dialog-actions class="justify-content-end">
+        <button
+          type="submit"
+          mat-flat-button
+          (click)="doAction()"
+          color="primary"
+          [disabled]="personaForm.invalid"
+        >
+          {{ action }}
+        </button>
+      <button mat-button (click)="closeDialog()" mat-flat-button color="warn">
+        Cancelar
+      </button>
+    </div>
+  </form>
+</div>

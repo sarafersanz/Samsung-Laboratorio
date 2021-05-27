@@ -1,0 +1,75 @@
+<!-- app.component.html -->
+<div class="container text-center">
+  <div class="row justify-content-center">
+    <div class="col-10 text-right mb-5">
+      <button mat-button (click)="openDialog('Añadir',{})" mat-flat-button color="primary">Añadir contacto</button>
+    </div>
+    <div class="col-10">
+      <table mat-table [dataSource]="dataSource" #mytable class="my-table mat-elevation-z8">
+
+        <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+
+        <!-- Id Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> ID. </th>
+          <td mat-cell *matCellDef="let element" class="text-left"> {{element.id}} </td>
+        </ng-container>
+
+        <!-- Nombre Column -->
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef> Nombre </th>
+          <td mat-cell *matCellDef="let element" class="text-left"> {{element.nombre}} </td>
+        </ng-container>
+
+        <!-- Apellidos Column -->
+        <ng-container matColumnDef="apellidos">
+          <th mat-header-cell *matHeaderCellDef> Apellidos </th>
+          <td mat-cell *matCellDef="let element" class="text-left"> {{element.apellidos}} </td>
+        </ng-container>
+
+        <!-- Edad Column -->
+        <ng-container matColumnDef="edad">
+          <th mat-header-cell *matHeaderCellDef> Edad </th>
+          <td mat-cell *matCellDef="let element" class="text-left"> {{element.edad}} </td>
+        </ng-container>
+
+        <!-- Dni Column -->
+        <ng-container matColumnDef="dni">
+          <th mat-header-cell *matHeaderCellDef> DNI </th>
+          <td mat-cell *matCellDef="let element" class="text-left"> {{element.dni}} </td>
+        </ng-container>
+
+        <!-- Cumple Column -->
+        <ng-container matColumnDef="cumple">
+          <th mat-header-cell *matHeaderCellDef> Cumpleaños </th>
+          <td mat-cell *matCellDef="let element" class="text-left"> {{element.cumple}} </td>
+        </ng-container>
+
+        <!-- Color Column -->
+        <ng-container matColumnDef="color">
+          <th mat-header-cell *matHeaderCellDef> Color </th>
+          <td mat-cell *matCellDef="let element" class="text-left"> {{element.color}} </td>
+        </ng-container>
+
+        <!-- Sexo Column -->
+        <ng-container matColumnDef="sexo">
+          <th mat-header-cell *matHeaderCellDef> Sexo </th>
+          <td mat-cell *matCellDef="let element" class="text-left"> {{element.sexo}} </td>
+        </ng-container>
+
+        <!-- Action Column -->
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef> Acción </th>
+          <td mat-cell *matCellDef="let element" class="action-link text-left">
+            <a (click)="openDialog('Editar',element)"><i class="fas fa-edit fa-2x mr-3"></i></a>
+            <a (click)="openDialog('Borrar',element)"><i class="fas fa-trash-alt fa-2x"></i></a>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </div>
+</div>
