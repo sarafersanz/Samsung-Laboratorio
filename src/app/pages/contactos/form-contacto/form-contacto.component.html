@@ -2,7 +2,13 @@
 <div mat-dialog-content>
   <form [formGroup]="personaForm" style="min-height: 300px">
     <div *ngIf="action != 'Borrar'; else elseTemplate">
-      <input hidden formControlName="id" />
+      <mat-form-field [hidden]="true">
+        <input
+          matInput
+          type="text"
+          formControlName="_id"
+        />
+      </mat-form-field>
       <mat-form-field class="mr-4">
         <input
           type="text"
@@ -11,10 +17,13 @@
           formControlName="nombre"
         />
         <mat-error *ngIf="handleError('nombre', 'minlength')">
-          Debe escribir al menos <strong>3 caracteres</strong>
+          Debe escribir al menos <strong>4 caracteres</strong>
         </mat-error>
         <mat-error *ngIf="handleError('nombre', 'required')">
           Debe poner un <strong>nombre</strong>
+        </mat-error>
+        <mat-error *ngIf="handleError('nombre', 'pattern')">
+          El <strong>nombre</strong> no debe contener números
         </mat-error>
       </mat-form-field>
       <mat-form-field>
@@ -25,10 +34,13 @@
           formControlName="apellidos"
         />
         <mat-error *ngIf="handleError('apellidos', 'minlength')">
-          Debe escribir al menos <strong>3 caracteres</strong>
+          Debe escribir al menos <strong>4 caracteres</strong>
         </mat-error>
         <mat-error *ngIf="handleError('apellidos', 'required')">
           Debe poner los <strong>apellidos</strong>
+        </mat-error>
+        <mat-error *ngIf="handleError('apellidos', 'pattern')">
+          Los <strong>apellidos</strong> no debe contener números
         </mat-error>
       </mat-form-field>
       <mat-form-field class="mr-4">
@@ -53,8 +65,14 @@
         <mat-error *ngIf="handleError('dni', 'minlength')">
           Debe escribir al menos <strong>9 caracteres</strong>
         </mat-error>
+        <mat-error *ngIf="handleError('dni', 'maxlength')">
+          Debe tener menos de <strong>9 caracteres</strong>
+        </mat-error>
         <mat-error *ngIf="handleError('dni', 'required')">
           Debe poner un <strong>DNI</strong>
+        </mat-error>
+        <mat-error *ngIf="handleError('dni', 'pattern')">
+          El <strong>DNI</strong> debe ser una cadena alfanumérica
         </mat-error>
       </mat-form-field>
       <mat-form-field class="mr-4">
@@ -82,16 +100,19 @@
           formControlName="color"
         />
         <mat-error *ngIf="handleError('color', 'minlength')">
-          Debe escribir al menos <strong>3 caracteres</strong>
+          Debe escribir al menos <strong>4 caracteres</strong>
         </mat-error>
         <mat-error *ngIf="handleError('color', 'required')">
           Debe poner un <strong>color</strong>
+        </mat-error>
+        <mat-error *ngIf="handleError('color', 'pattern')">
+          El <strong>color</strong> no debe contener números
         </mat-error>
       </mat-form-field>
       <mat-form-field>
         <mat-select formControlName="sexo">
           <mat-option *ngFor="let element of sexo" [value]="element.value">
-            {{element.viewValue}}
+            {{ element.viewValue }}
           </mat-option>
         </mat-select>
         <mat-error *ngIf="handleError('sexo', 'required')">
@@ -105,15 +126,15 @@
     </ng-template>
 
     <div mat-dialog-actions class="justify-content-end">
-        <button
-          type="submit"
-          mat-flat-button
-          (click)="doAction()"
-          color="primary"
-          [disabled]="personaForm.invalid"
-        >
-          {{ action }}
-        </button>
+      <button
+        type="submit"
+        mat-flat-button
+        (click)="doAction()"
+        color="primary"
+        [disabled]="personaForm.invalid"
+      >
+        {{ action }}
+      </button>
       <button mat-button (click)="closeDialog()" mat-flat-button color="warn">
         Cancelar
       </button>

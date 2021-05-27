@@ -1,6 +1,6 @@
 export class Persona {
 
-  id?: number;
+  _id?: number;
   nombre: string;
   apellidos: string;
   edad: number;
@@ -10,7 +10,7 @@ export class Persona {
   sexo: string;
 
   constructor() {
-    this.id = 0;
+    this._id = 0;
     this.nombre = "";
     this.apellidos = "";
     this.edad = 0;
